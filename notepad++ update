@@ -10,10 +10,10 @@ if ($uninstallKeys) {
 "
         $installerPath = "$env:TEMP\npp.8.5.8.Installer.x64.exe"
 
-        # Download WinRAR installer
+        # Download Notepad++ installer
         Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
 
-        # Install WinRAR
+        # Install Notepad++
         Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 
         # Clean up the installer file
