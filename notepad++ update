@@ -21,3 +21,13 @@ if ($uninstallKeys) {
     }
    
 }
+
+
+==========================================================================================
+$notepadppPath = 'C:\Program Files\Notepad++\notepad++.exe'
+
+if (Test-Path $notepadppPath) {
+    Write-Output "Notepad++ is installed."
+} else {
+    Write-Output "Notepad++ is not installed."
+}
