@@ -1,1 +1,23 @@
 https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5.8/npp.8.5.8.Installer.x64.exe
+
+$uninstallKeys = Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" |
+                Where-Object { $_.DisplayName -like "*WinRAR*" }
+
+if ($uninstallKeys) {
+    foreach ($key in $uninstallKeys) {
+
+        $downloadUrl = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5.8/npp.8.5.8.Installer.x64.exe
+"
+        $installerPath = "$env:TEMP\npp.8.5.8.Installer.x64.exe"
+
+        # Download WinRAR installer
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+        # Install WinRAR
+        Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+        # Clean up the installer file
+        Remove-Item $installerPath
+    }
+   
+}
