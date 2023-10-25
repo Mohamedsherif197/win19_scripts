@@ -20,7 +20,7 @@ if (Test-Path $programPath) {
     $version = $versionInfo.ProductVersion
     Write-Host "7-Zip version: $version"
 
-    if($version < 23.01){
+    if($version -lt 23.01){
        $downloadUrl = "https://www.7-zip.org/a/7z2301-x64.exe"
        $installerPath = "$env:TEMP\7z2301-x64.exe"
 
