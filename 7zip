@@ -3,13 +3,13 @@ $programPath = "C:\Program Files\7-Zip\7z.exe"
 # Check if 7-Zip executable exists
 if (Test-Path $programPath) {
     Write-Host "7-Zip is installed."
-    $downloadUrl = "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5.8/npp.8.5.8.Installer.x64.exe"
-    $installerPath = "$env:TEMP\npp.8.5.8.Installer.x64.exe"
+    $downloadUrl = "https://www.7-zip.org/a/7z2301-x64.exe"
+    $installerPath = "$env:TEMP\7z2301-x64.exe"
 
-    # Download Notepad++ installer
+    # Download 7-ZIP installer
     Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
 
-    # Install Notepad++
+    # Install 7-ZIP
     Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 
     # Clean up the installer file
