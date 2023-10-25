@@ -1,0 +1,10 @@
+$programPath = "C:\Program Files\7-Zip\7z.exe"
+
+# Check if 7-Zip executable exists
+if (Test-Path $programPath) {
+    $versionInfo = (Get-Command $programPath).FileVersionInfo
+    $version = $versionInfo.ProductVersion
+    Write-Host "7-Zip version: $version"
+} else {
+    Write-Host "7-Zip is not installed."
+}
