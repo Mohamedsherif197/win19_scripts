@@ -1,0 +1,10 @@
+$programName = "7-Zip"
+
+# Check if 7-Zip is installed
+$installed = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name = '$programName'" -ErrorAction SilentlyContinue
+
+if ($installed) {
+    Write-Host "$programName is installed."
+} else {
+    Write-Host "$programName is not installed."
+}
