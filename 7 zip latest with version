@@ -2,23 +2,10 @@ $programPath = "C:\Program Files\7-Zip\7z.exe"
 
 # Check if 7-Zip executable exists
 if (Test-Path $programPath) {
-    $versionInfo = (Get-Command $programPath).FileVersionInfo
-    $version = $versionInfo.ProductVersion
-    Write-Host "7-Zip version: $version"
-} else {
-    Write-Host "7-Zip is not installed."
-}
-
-=================================================================================================================
-$programPath = "C:\Program Files\7-Zip\7z.exe"
-
-# Check if 7-Zip executable exists
-if (Test-Path $programPath) {
 
     # GET 7zip version:
     $versionInfo = (Get-Command $programPath).FileVersionInfo
     $version = $versionInfo.ProductVersion
-    Write-Host "7-Zip version: $version"
 
     if($version -lt 23.01){
        $downloadUrl = "https://www.7-zip.org/a/7z2301-x64.exe"
