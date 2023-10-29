@@ -1,0 +1,11 @@
+       $downloadUrl = "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100"
+       $installerPath = "$env:TEMP\edge-x64.exe"
+
+       # Download 7-ZIP installer
+       Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+       # Install 7-ZIP
+       Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+       # Clean up the installer file
+       Remove-Item $installerPath
