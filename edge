@@ -9,3 +9,28 @@
 
        # Clean up the installer file
        Remove-Item $installerPath
+=====================================
+$installerUrl = "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100"
+$installerPath = "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
+
+try {
+    # Download the Microsoft Edge installer
+    Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
+
+    # Start the installation process
+    $process = Start-Process -FilePath $installerPath -ArgumentList "/S" -PassThru -Wait
+
+    # Check the exit code to determine if the installation was successful
+    if ($process.ExitCode -eq 0) {
+        Write-Host "Installation completed successfully."
+    } else {
+        Write-Host "Installation failed with exit code $($process.ExitCode)."
+    }
+}
+catch {
+    Write-Host "An error occurred during the installation: $_"
+}
+finally {
+    # Clean up the installer file
+    Remove-Item -Path $installerPath -Force
+}
