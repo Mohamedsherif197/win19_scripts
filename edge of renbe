@@ -41,8 +41,5 @@ if ($edgeApp) {
 
 ======================================================================================================================================================================================================================================
 
-$edgeKeyPath = "HKLM:\SOFTWARE\Microsoft\Edge\BLBeacon"
-$versionProperty = "version"
-
-$edgeVersion = (Get-ItemProperty -Path $edgeKeyPath -Name $versionProperty).$versionProperty
+$edgeVersion = (Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon' -Name 'version').version
 $edgeVersion
