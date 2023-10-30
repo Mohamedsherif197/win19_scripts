@@ -37,3 +37,12 @@ if ($edgeApp) {
 } else {
     Write-Output "Microsoft Edge is not installed."
 }
+
+
+======================================================================================================================================================================================================================================
+
+$edgeKeyPath = "HKLM:\SOFTWARE\Microsoft\Edge\BLBeacon"
+$versionProperty = "version"
+
+$edgeVersion = (Get-ItemProperty -Path $edgeKeyPath -Name $versionProperty).$versionProperty
+$edgeVersion
