@@ -36,3 +36,4 @@ if ($edgeApp) {
 
 } else {
     Write-Output "Microsoft Edge is not installed."
+}
