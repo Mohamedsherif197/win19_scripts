@@ -35,7 +35,7 @@ if ($edgeApp) {
     }
 
     if ($result -eq $true) {
-        Write-Output "Good morning"
+        Write-Output "Installing latest edge"
         Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100" -OutFile "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
 
         # Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe" -ArgumentList "/S" -Wait
