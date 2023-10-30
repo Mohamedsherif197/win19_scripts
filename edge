@@ -64,7 +64,7 @@ $INSTALLED | ?{ $_.DisplayName -match 'edge' } | sort-object -Property DisplayNa
 
 ================================================================================================================================
 
-$url = "https://www.example.com/file.zip"
-$destination = Join-Path -Path ([Environment]::GetFolderPath("DesktopDirectory")) -ChildPath "file.zip"
+$url = "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100"
+$destination = Join-Path -Path ([Environment]::GetFolderPath("DesktopDirectory")) -ChildPath "edgeinstaller.exe"
 
 Invoke-WebRequest -Uri $url -OutFile $destination
