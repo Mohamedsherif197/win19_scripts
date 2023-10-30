@@ -1,13 +1,38 @@
-#Update Microsoft Edge to version 117.0.2045.36 if Microsoft edge exists on machine.
+# Update Microsoft Edge to version 117.0.2045.36 if Microsoft Edge exists on the machine.
 
 # Check if Microsoft Edge is installed
 $edgeApp = Get-AppxPackage -Name Microsoft.MicrosoftEdge
 
 if ($edgeApp) {
     Write-Output "Microsoft Edge is installed."
+    $edgeVersion = (Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon' -Name 'version').version
+    $edgeVersion    
+    $targetVersion = [Version]"118.0.2088.78"
+    $currentVersion = [Version]"$edgeVersion"
+
+    if ($currentVersion.Major -lt $targetVersion.Major) {
+        # The current version's major component is less than the target version's major component
+        return $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -lt $targetVersion.Minor) {
+        # The current version's major component is equal to the target version's major component,
+        # but the current version's minor component is less than the target version's minor component
+        return $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -lt $targetVersion.Build) {
+        # The current version's major and minor components are equal to the target version's major and minor components,
+        # but the current version's build component is less than the target version's build component
+        return $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -eq $targetVersion.Build -and $currentVersion.Revision -lt $targetVersion.Revision) {
+        # The current version's major, minor, and build components are equal to the target version's major, minor, and build components,
+        # but the current version's revision component is less than the target version's revision component
+        return $true
+    }
+
     Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100" -OutFile "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
 
-    #Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe" -ArgumentList "/S" -Wait
+    # Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe" -ArgumentList "/S" -Wait
 
     $installerPath = "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
 
@@ -33,11 +58,11 @@ if ($edgeApp) {
     } else {
         Write-Output "Installation failed with exit code $($process.ExitCode)."
     }
-
-} else {
+}
+else {
     Write-Output "Microsoft Edge is not installed."
 }
-
+    
 
 ======================================================================================================================================================================================================================================
 
