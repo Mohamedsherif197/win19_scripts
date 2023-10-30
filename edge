@@ -65,6 +65,6 @@ $INSTALLED | ?{ $_.DisplayName -match 'edge' } | sort-object -Property DisplayNa
 ================================================================================================================================
 
 $url = "https://www.example.com/file.zip"
-$destination = [System.IO.Path]::Combine([Environment]::GetFolderPath("Downloads"), "file.zip")
+$destination = Join-Path -Path ([Environment]::GetFolderPath("DesktopDirectory")) -ChildPath "file.zip"
 
 Invoke-WebRequest -Uri $url -OutFile $destination
