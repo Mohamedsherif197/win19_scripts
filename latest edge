@@ -7,7 +7,7 @@ if ($edgeApp) {
     Write-Output "Microsoft Edge is installed."
     $edgeVersion = (Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon' -Name 'version').version
     $edgeVersion    
-    $targetVersion = [Version]"118.0.2088.78"
+    $targetVersion = [Version]"118.0.2088.76"
     $currentVersion = [Version]"$edgeVersion"
 
     if ($currentVersion.Major -lt $targetVersion.Major) {
