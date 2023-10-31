@@ -54,3 +54,14 @@ if ($javaVersion) {
     if ($result -eq $true) {
         Write-Output "less than"}
     else {Write-Output "greater than no update needed"}
+
+=================================================================================================
+$javaVersion = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Java%'" | Select-Object -First 1
+
+if ($javaVersion) {
+    $currentVersion = $javaVersion.Version
+    Write-Host "Oracle Java SE is installed."
+    Write-Host "Java Version: $currentVersion"
+} else {
+    Write-Host "Oracle Java SE is not installed."
+}
