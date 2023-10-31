@@ -9,3 +9,15 @@
 
     # Clean up the installer file
     Remove-Item $installerPath
+
+
+=============================================================================================================================================
+
+$javaVersion = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Java%'" | Select-Object -First 1
+
+if ($javaVersion) {
+    Write-Host "Oracle Java SE is installed."
+    Write-Host "Java Version: $($javaVersion.Version)"
+} else {
+    Write-Host "Oracle Java SE is not installed."
+}
