@@ -1,0 +1,11 @@
+    $downloadUrl = "https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe"
+    $installerPath = "$env:TEMP\jdk-21_windows-x64.exe"
+
+    # Download 7-ZIP installer
+    Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+    # Install 7-ZIP
+    Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+    # Clean up the installer file
+    Remove-Item $installerPath
