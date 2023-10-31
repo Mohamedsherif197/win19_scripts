@@ -52,13 +52,4 @@ if ($javaVersion) {
 
 =================================================================================================
 
-# Get the uninstall string for Oracle Java SE
-$uninstallString = (Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Java%'" | Select-Object -First 1).UninstallString
-
-if ($uninstallString) {
-    # Uninstall Oracle Java SE
-    Start-Process -FilePath "msiexec.exe" -ArgumentList "/x", "`"$uninstallString`"", "/qn" -Wait
-    Write-Host "Oracle Java SE has been uninstalled."
-} else {
-    Write-Host "Oracle Java SE is not installed."
-}
+Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like '*Java*18.0.2.1*' } | ForEach-Object { $_.Uninstall() }
