@@ -53,3 +53,18 @@ if ($javaVersion) {
 =================================================================================================
 
 Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like '*Java*18.0.2.1*' } | ForEach-Object { $_.Uninstall() }
+
+==================================================================================================================
+$javaVersion = "18.0.2.1"
+$javaVersionPattern = "*Java*$javaVersion*"
+
+$javaProducts = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like $javaVersionPattern }
+
+if ($javaProducts) {
+    $javaProducts | ForEach-Object {
+        $_.Uninstall()
+    }
+    Write-Host "Java version $javaVersion has been uninstalled."
+} else {
+    Write-Host "Java version $javaVersion is not installed."
+}
