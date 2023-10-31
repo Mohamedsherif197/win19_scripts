@@ -68,3 +68,68 @@ if ($javaProducts) {
 } else {
     Write-Host "Java version $javaVersion is not installed."
 }
+====================================================================================================================
+
+$javaVersion = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Java%'" | Select-Object -First 1
+
+if ($javaVersion) {
+    $currentVersion = $javaVersion.Version
+    Write-Host "Oracle Java SE is installed."
+    Write-Host "Java Version: $currentVersion"
+    $targetVersion = [Version]"21.0.1.0"
+    $currentVersion = [Version]"$currentVersion"
+
+    if ($currentVersion.Major -lt $targetVersion.Major) {
+        # The current version's major component is less than the target version's major component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -lt $targetVersion.Minor) {
+        # The current version's major component is equal to the target version's major component,
+        # but the current version's minor component is less than the target version's minor component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -lt $targetVersion.Build) {
+        # The current version's major and minor components are equal to the target version's major and minor components,
+        # but the current version's build component is less than the target version's build component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -eq $targetVersion.Build -and $currentVersion.Revision -lt $targetVersion.Revision) {
+        # The current version's major, minor, and build components are equal to the target version's major, minor, and build components,
+        # but the current version's revision component is less than the target version's revision component
+        $result = $true
+    }
+    else {
+        # The current version is equal to or greater than the target version
+        $result = $false
+    }
+
+    if ($result -eq $true) {
+        Write-Output "Update will be performed"
+        $downloadUrl = "https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe"
+        $installerPath = "$env:TEMP\jdk-21_windows-x64.exe"
+
+        # Download java installer
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+        # Install java
+        Start-Process -FilePath $installerPath -ArgumentList "/s INSTALL_SILENT=1" -Wait
+
+        # Clean up the installer file
+        Remove-Item $installerPath
+
+        # Delete old Java
+        $javaVersionPattern = "*Java*$currentVersion*"
+
+        $javaProducts = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like $javaVersionPattern }
+
+        if ($javaProducts) {
+            $javaProducts | ForEach-Object {
+            $_.Uninstall()
+    }
+    Write-Host "Java version $currentVersion has been uninstalled."
+} }
+
+    else {Write-Output "Up to date"}
+} else {
+    Write-Host "Oracle Java SE is not installed."
+}
