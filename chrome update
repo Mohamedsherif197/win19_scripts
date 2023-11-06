@@ -9,6 +9,18 @@
 
        # Clean up the installer file
        Remove-Item $installerPath
+====================================================================================================================
+$downloadUrl = "https://www.google.com/chrome/next-steps.html?statcb=1&installdataindex=empty&defaultbrowser=0#"
+$installerPath = "$env:TEMP\chrome-x64.exe"
+
+# Download chrome installer
+Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+# Install chrome
+Start-Process -FilePath $installerPath -Wait
+
+# Clean up the installer file
+Remove-Item $installerPath
 =================================================================================================================
 $chrome = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Google Chrome%'"
 $currentVersionString = $chrome.Version
