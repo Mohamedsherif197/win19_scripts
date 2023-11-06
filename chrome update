@@ -1,5 +1,9 @@
 $chrome = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Google Chrome%'"
 $currentVersion = $chrome.Version
+=================================================================================================================
+$chrome = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Google Chrome%'"
+$currentVersionString = $chrome.Version
+$currentVersion = [Version]$currentVersionString
 
 $targetVersion = [Version]"119.0.6045.106"
 
