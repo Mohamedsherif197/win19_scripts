@@ -38,7 +38,4 @@ else {
     if ($result) {
         Write-Output "Good morning"
     }
-    else {
-        Write-Output "Bad night"
-    }
 }
