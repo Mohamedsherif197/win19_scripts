@@ -1,12 +1,14 @@
-$chromeDownloadUrl = "https://dl.google.com/chrome/install/latest/chrome_installer.exe"
-$chromeInstallerPath = "C:\Temp\chrome_installer.exe"
+       $downloadUrl = "https://www.google.com/chrome/next-steps.html?statcb=1&installdataindex=empty&defaultbrowser=0#"
+       $installerPath = "$env:TEMP\chrome-x64.exe"
 
-$wc = New-Object System.Net.WebClient
-$wc.DownloadFile($chromeDownloadUrl, $chromeInstallerPath)
+       # Download chrome installer
+       Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
 
-# Perform operations with the downloaded installer here
+       # Install chrome
+       Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
 
-Remove-Item -Path $chromeInstallerPath -Force
+       # Clean up the installer file
+       Remove-Item $installerPath
 =================================================================================================================
 $chrome = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Google Chrome%'"
 $currentVersionString = $chrome.Version
