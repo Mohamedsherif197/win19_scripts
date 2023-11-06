@@ -1,7 +1,8 @@
 $chromeDownloadUrl = "https://dl.google.com/chrome/install/latest/chrome_installer.exe"
 $chromeInstallerPath = "C:\Temp\chrome_installer.exe"
 
-Invoke-WebRequest -Uri $chromeDownloadUrl -OutFile $chromeInstallerPath
+$wc = New-Object System.Net.WebClient
+$wc.DownloadFile($chromeDownloadUrl, $chromeInstallerPath)
 
 # Perform operations with the downloaded installer here
 
