@@ -1,26 +1,24 @@
-       $downloadUrl = "https://www.google.com/chrome/next-steps.html?statcb=1&installdataindex=empty&defaultbrowser=0#"
-       $installerPath = "$env:TEMP\chrome-x64.exe"
+# Define the URL for the latest Google Chrome installer
+$chromeUrl = "https://dl.google.com/chrome/install/GoogleChromeStandaloneEnterprise64.msi"
 
-       # Download chrome installer
-       Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+# Define the path where the Chrome installer will be downloaded
+$downloadPath = "$env:TEMP\chrome-installer.msi"
 
-       # Install chrome
-       Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+# Download Chrome installer
+Invoke-WebRequest -Uri $chromeUrl -OutFile $downloadPath
 
-       # Clean up the installer file
-       Remove-Item $installerPath
-====================================================================================================================
-$downloadUrl = "https://www.google.com/chrome/next-steps.html?statcb=1&installdataindex=empty&defaultbrowser=0#"
-$installerPath = "$env:TEMP\chrome-x64.exe"
+# Check if the download was successful
+if (Test-Path $downloadPath) {
+    # Run the Chrome installer silently
+    Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", $downloadPath, "/qn", "/norestart" -Wait
 
-# Download chrome installer
-Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+    # Clean up the downloaded installer
+    Remove-Item $downloadPath -Force
 
-# Install chrome
-Start-Process -FilePath $installerPath -Wait
-
-# Clean up the installer file
-Remove-Item $installerPath
+    Write-Output "Google Chrome has been successfully updated."
+} else {
+    Write-Output "Failed to download Google Chrome installer."
+}
 =================================================================================================================
 $chrome = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Google Chrome%'"
 $currentVersionString = $chrome.Version
