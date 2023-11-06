@@ -1,0 +1,2 @@
+$chrome = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Google Chrome%'"
+$chrome.Version
