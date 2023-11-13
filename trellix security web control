@@ -28,3 +28,17 @@ if ($feature) {
 } else {
     Write-Output "Trellix Endpoint Security Web Control is not installed."
 }
+
+
+============================================================================
+$targetAppName = "Trellix Endpoint Security Web Control"
+
+$installedApps = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*$targetAppName*" }
+
+if ($installedApps) {
+    $output = $installedApps | Out-String
+    Write-Output "Trellix Endpoint Security Web Control is installed."
+    Write-Output $output
+} else {
+    Write-Output "Trellix Endpoint Security Web Control is not installed."
+}
