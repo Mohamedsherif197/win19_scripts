@@ -14,3 +14,17 @@ if ($uninstallString) {
 } else {
     Write-Output "Trellix Endpoint Security Web Control is not installed."
 }
+
+========================================================================
+
+$targetFeatureName = "Trellix Endpoint Security Web Control"
+
+$feature = Get-WindowsFeature | Where-Object { $_.Name -eq $targetFeatureName }
+
+if ($feature) {
+    Write-Output "Uninstalling Trellix Endpoint Security Web Control..."
+    Uninstall-WindowsFeature -Name $targetFeatureName -Remove
+    Write-Output "Trellix Endpoint Security Web Control has been uninstalled."
+} else {
+    Write-Output "Trellix Endpoint Security Web Control is not installed."
+}
