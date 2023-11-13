@@ -1,0 +1,16 @@
+Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Trellix Endpoint Security Web Control*" }
+
+
+=============================================================
+
+$targetAppName = "Trellix Endpoint Security Web Control"
+
+$uninstallString = (Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*$targetAppName*" }).UninstallString
+
+if ($uninstallString) {
+    Write-Output "Uninstalling Trellix Endpoint Security Web Control..."
+    Start-Process -FilePath "msiexec.exe" -ArgumentList "/x", "`"$uninstallString`"", "/qn" -Wait
+    Write-Output "Trellix Endpoint Security Web Control has been uninstalled."
+} else {
+    Write-Output "Trellix Endpoint Security Web Control is not installed."
+}
