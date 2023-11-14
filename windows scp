@@ -132,3 +132,15 @@ if ($winscpPath) {
 } else {
     Write-Host "WinSCP is not installed."
 }
+============================================================================
+$winscpPath = Get-Command winscp.exe -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
+
+if ($winscpPath) {
+    $versionInfo = (Get-Item $winscpPath).VersionInfo
+    $winSCPVersion = $versionInfo.FileVersion
+    $truncatedVersion = $winSCPVersion -replace '\.\d+$'
+    $currentVersion = $truncatedVersion
+    Write-Host "WinSCP version: $currentVersion"
+} else {
+    Write-Host "WinSCP is not installed."
+}
