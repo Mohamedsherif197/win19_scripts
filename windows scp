@@ -32,6 +32,6 @@
     }
 
     else {Write-Output "Up to date"}
-} else {
+ else {
     Write-Host "Windows SCP is not installed."
 }
