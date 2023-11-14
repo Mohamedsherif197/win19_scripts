@@ -35,3 +35,69 @@
  else {
     Write-Host "Windows SCP is not installed."
 }
+
+======================================================================================================================
+
+$WindowsSCPVersion = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'WindowsSCP%'" | Select-Object -First 1
+
+if ($WindowsSCPVersion) {
+    $currentVersion = $WindowsSCPVersion.Version
+    Write-Host "Windows SCP is installed."
+    Write-Host "WindowsSCP Version: $currentVersion"
+    $targetVersion = [Version]"6.1.2"
+    $currentVersion = [Version]"$currentVersion"
+
+    if ($currentVersion.Major -lt $targetVersion.Major) {
+        # The current version's major component is less than the target version's major component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -lt $targetVersion.Minor) {
+        # The current version's major component is equal to the target version's major component,
+        # but the current version's minor component is less than the target version's minor component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -lt $targetVersion.Build) {
+        # The current version's major and minor components are equal to the target version's major and minor components,
+        # but the current version's build component is less than the target version's build component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -eq $targetVersion.Build -and $currentVersion.Revision -lt $targetVersion.Revision) {
+        # The current version's major, minor, and build components are equal to the target version's major, minor, and build components,
+        # but the current version's revision component is less than the target version's revision component
+        $result = $true
+    }
+    else {
+        # The current version is equal to or greater than the target version
+        $result = $false
+    }
+
+    if ($result -eq $true) {
+        Write-Output "Update will be performed"
+        $downloadUrl = "https://winscp.net/download/WinSCP-6.1.2-Setup.exe"
+        $installerPath = "$env:TEMP\jdk-21_windows-x64.exe"
+
+        # Download WindowsSCP installer
+        Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+        # Install WindowsSCP
+        Start-Process -FilePath $installerPath -ArgumentList "/s INSTALL_SILENT=1" -Wait
+
+        # Clean up the installer file
+        Remove-Item $installerPath
+
+        # Delete old WindowsSCP
+        $WindowsSCPVersionPattern = "*WindowsSCP*$currentVersion*"
+
+        $WindowsSCPProducts = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like $WindowsSCPVersionPattern }
+
+        if ($WindowsSCPProducts) {
+            $WindowsSCPProducts | ForEach-Object {
+            $_.Uninstall()
+    }
+    Write-Host "WindowsSCP version $currentVersion has been uninstalled."
+} }
+
+    else {Write-Output "Up to date"}
+} else {
+    Write-Host "Windows SCP is not installed."
+}
