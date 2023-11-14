@@ -100,22 +100,10 @@ Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$installerPath`" /qn" 
 Remove-Item $installerPath
 
 =================================================================================
-%Invoke-WebRequest -Uri "<URL>" -OutFile "$env:USERPROFILE\Downloads\WinSCP-Installer.exe"
-
 $downloadUrl = 'https://winscp.net/download/WinSCP-6.1.2-Setup.exe'
 $downloadPath = Join-Path $env:USERPROFILE 'Downloads\WinSCP-Setup.exe'
 
-# Download the installer
 Invoke-WebRequest -Uri $downloadUrl -OutFile $downloadPath
 
-# Wait for the download to complete
-Write-Host "Download complete."
-
-# Install WinSCP
 $installArgs = '/SP- /VERYSILENT /SUPPRESSMSGBOXES /NORESTART'
 Start-Process -FilePath $downloadPath -ArgumentList $installArgs -Wait
-
-# Clean up the downloaded installer
-Remove-Item $downloadPath -Force
-
-Write-Host "WinSCP installation complete."
