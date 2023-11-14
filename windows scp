@@ -26,3 +26,12 @@
         # The current version is equal to or greater than the target version
         $result = $false
     }
+    if ($result -eq $true) {
+        Write-Output "Update will be performed"
+       
+    }
+
+    else {Write-Output "Up to date"}
+} else {
+    Write-Host "Windows SCP is not installed."
+}
