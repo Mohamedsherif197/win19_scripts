@@ -71,3 +71,17 @@ if ($winscpPath) {
 } else {
     Write-Host "Windows SCP is not installed."
 }
+
+==============================================================================================
+
+       $downloadUrl = "https://winscp.net/download/WinSCP-6.1.2-Setup.exe"
+       $installerPath = "$env:TEMP\WinSCP-6.1.2-Setup.exe"
+
+       # Download WINSCP installer
+       Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+       # Install WINSCP
+       Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+
+       # Clean up the installer file
+       Remove-Item $installerPath
