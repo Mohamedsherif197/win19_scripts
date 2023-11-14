@@ -85,3 +85,16 @@ if ($winscpPath) {
 
        # Clean up the installer file
        Remove-Item $installerPath
+===========================================================================================
+
+$downloadUrl = "https://winscp.net/download/WinSCP-6.1.2-Setup.exe"
+$installerPath = "$env:TEMP\WinSCP-6.1.2-Setup.exe"
+
+# Download WinSCP installer
+Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+
+# Install WinSCP
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$installerPath`" /qn" -NoNewWindow -Wait
+
+# Clean up the installer file
+Remove-Item $installerPath
