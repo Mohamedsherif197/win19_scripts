@@ -111,12 +111,9 @@ $installArgs = '/SP- /VERYSILENT /SUPPRESSMSGBOXES /NORESTART'
 Start-Process -FilePath $downloadPath -ArgumentList $installArgs -Wait
 ===================================================================================
 
-$downloadUrl = 'https://downloads.sourceforge.net/project/winscp/WinSCP/6.1.2/WinSCP-6.1.2-Setup.exe?ts=gAAAAABlU3HvV7QHYm4zw5AI8U5LgV_dtoshWp2Z3vlLjlw6Ec3lq_39lt2jhliqv40ccB_n54mRjUEF0gvJCtTfk5SMAHSKFw%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fwinscp%2Ffiles%2FWinSCP%2F6.1.2%2FWinSCP-6.1.2-Setup.exe%2Fdownload'
+$downloadUrl = 'https://downloads.sourceforge.net/project/winscp/WinSCP/6.1.2/WinSCP-6.1.2-Setup.exe?use_mirror=versaweb&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fwinscp%2Ffiles%2FWinSCP%2F6.1.2%2FWinSCP-6.1.2-Setup.exe%2Fdownload'
 $downloadPath = Join-Path $env:USERPROFILE 'Downloads\WinSCP-Setup.exe'
 
-$response = Invoke-WebRequest -Uri $downloadUrl -MaximumRedirection 0
-$directDownloadUrl = $response.Headers.Location
-
-Invoke-WebRequest -Uri $directDownloadUrl -OutFile $downloadPath
+Invoke-WebRequest -Uri $downloadUrl -OutFile $downloadPath -UseBasicParsing
 
 Write-Host "Download complete."
