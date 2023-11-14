@@ -6,7 +6,7 @@ if ($winscpPath) {
     $winSCPVersion = $versionInfo.FileVersion
     $truncatedVersion = $winSCPVersion -replace '\.\d+$'
     $currentVersion = $truncatedVersion
-    Write-Host "WinSCP version: $currentVersion"
+    %Write-Host "WinSCP version: $currentVersion"
 } else {
     Write-Host "WinSCP is not installed."
 }
@@ -14,7 +14,7 @@ if ($winscpPath) {
 if ($winscpPath) {
    
     Write-Host "WinSCP is installed."
-    Write-Host "WinSCP Version: $currentVersion"
+    %Write-Host "WinSCP Version: $currentVersion"
     $targetVersion = [Version]"6.1.2"
 
 
