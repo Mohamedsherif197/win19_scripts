@@ -1,4 +1,3 @@
-%latest:
 $winscpPath = Get-Command winscp.exe -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
 
 if ($winscpPath) {
