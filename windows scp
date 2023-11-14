@@ -104,6 +104,10 @@ if ($WindowsSCPVersion) {
 
 
 ==============================================================
+$winscpPath = Get-Command winscp.exe -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
 
-$winscpPath = Join-Path -Path $env:ProgramFiles -ChildPath 'WinSCP\WinSCP.exe'
-Test-Path $winscpPath
+if ($winscpPath) {
+    Write-Host "WinSCP is installed at: $winscpPath"
+} else {
+    Write-Host "WinSCP is not installed."
+}
