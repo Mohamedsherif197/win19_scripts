@@ -101,3 +101,9 @@ if ($WindowsSCPVersion) {
 } else {
     Write-Host "Windows SCP is not installed."
 }
+
+
+==============================================================
+
+$winscpPath = Join-Path -Path $env:ProgramFiles -ChildPath 'WinSCP\WinSCP.exe'
+Test-Path $winscpPath
