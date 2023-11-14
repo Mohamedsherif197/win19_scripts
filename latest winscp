@@ -114,6 +114,7 @@ Start-Process -FilePath $downloadPath -ArgumentList $installArgs -Wait
 $downloadUrl = 'https://downloads.sourceforge.net/project/winscp/WinSCP/6.1.2/WinSCP-6.1.2-Setup.exe?use_mirror=versaweb&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fwinscp%2Ffiles%2FWinSCP%2F6.1.2%2FWinSCP-6.1.2-Setup.exe%2Fdownload'
 $downloadPath = Join-Path $env:USERPROFILE 'Downloads\WinSCP-Setup.exe'
 
-Invoke-WebRequest -Uri $downloadUrl -OutFile $downloadPath -UseBasicParsing
+$webClient = New-Object System.Net.WebClient
+$webClient.DownloadFile($downloadUrl, $downloadPath)
 
 Write-Host "Download complete."
