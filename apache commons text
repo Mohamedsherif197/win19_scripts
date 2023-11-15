@@ -18,6 +18,6 @@ $env:CLASSPATH += ";C:\path\to\commons-text-1.11\commons-text-1.11.jar"
 
 
 $Url = "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zip"
-$OutputPath = "C:\path\to\save\file.zip"
+$OutputPath = "$env:TEMP\file.zip"
 
 Invoke-WebRequest -Uri $Url -OutFile $OutputPath
