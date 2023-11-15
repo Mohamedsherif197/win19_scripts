@@ -8,7 +8,7 @@ mvn clean install
 
 =================================================================
 
-Invoke-WebRequest -Uri "https://downloads.apache.org/commons/text/binaries/commons-text-1.11-bin.zip" -OutFile "commons-text-1.11-bin.zip"
+Invoke-WebRequest -Uri "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zip"
 
 Expand-Archive -Path "commons-text-1.11-bin.zip" -DestinationPath "commons-text-1.11"
 
