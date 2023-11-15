@@ -16,14 +16,8 @@ $env:CLASSPATH += ";C:\path\to\commons-text-1.11\commons-text-1.11.jar"
 
 ===============================================================================
 
-       $downloadUrl = "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zip"
-       $installerPath = "$env:TEMP\commons-text-1.11.0-src.zip"
 
-       # Download 7-ZIP installer
-       Invoke-WebRequest -Uri $downloadUrl -OutFile $installerPath
+$Url = "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zip"
+$OutputPath = "C:\path\to\save\file.zip"
 
-       # Install 7-ZIP
-       Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
-
-       # Clean up the installer file
-       Remove-Item $installerPath
+Invoke-WebRequest -Uri $Url -OutFile $OutputPath
