@@ -4,3 +4,12 @@ Expand-Archive -Path "commons-text-1.11.0-src.zip" -DestinationPath "commons-tex
 
 cd "commons-text-1.11.0"
 mvn clean install
+
+
+=================================================================
+
+Invoke-WebRequest -Uri "https://downloads.apache.org/commons/text/binaries/commons-text-1.11-bin.zip" -OutFile "commons-text-1.11-bin.zip"
+
+Expand-Archive -Path "commons-text-1.11-bin.zip" -DestinationPath "commons-text-1.11"
+
+$env:CLASSPATH += ";C:\path\to\commons-text-1.11\commons-text-1.11.jar"
