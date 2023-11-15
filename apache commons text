@@ -20,3 +20,16 @@ $Url = "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zi
 $OutputPath = [System.IO.Path]::Combine([Environment]::GetFolderPath("User"), "Downloads\commons-text-1.11.0-src.zip")
 
 Invoke-WebRequest -Uri $Url -OutFile $OutputPath
+
+==================================================================================
+
+$Url = "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zip"
+$OutputPath = [System.IO.Path]::Combine([Environment]::GetFolderPath("User"), "Downloads\commons-text-1.11.0-src.zip")
+$ExtractedPath = [System.IO.Path]::Combine([Environment]::GetFolderPath("User"), "Downloads\commons-text-1.11.0-src")
+
+Invoke-WebRequest -Uri $Url -OutFile $OutputPath
+Expand-Archive -Path $OutputPath -DestinationPath $ExtractedPath
+
+# Perform installation steps here
+# Depending on the content of the ZIP file, you may need to execute specific installation commands or scripts.
+# Please refer to the installation instructions provided with the downloaded package.
