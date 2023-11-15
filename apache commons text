@@ -1,0 +1,6 @@
+Invoke-WebRequest -Uri "https://dlcdn.apache.org//commons/text/source/commons-text-1.11.0-src.zip" -OutFile "commons-text-1.11.0-src.zip"
+
+Expand-Archive -Path "commons-text-1.11.0-src.zip" -DestinationPath "commons-text-1.11.0"
+
+cd "commons-text-1.11.0"
+mvn clean install
