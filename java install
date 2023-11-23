@@ -49,7 +49,7 @@ if ($javaVersion) {
         $javaVersionPattern = "*Java*$currentVersion*"
 
         $javaProducts = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like $javaVersionPattern }
-
+        Write-Host "$javaVersionPattern"
         if ($javaProducts) {
             $javaProducts | ForEach-Object {
             $_.Uninstall()
