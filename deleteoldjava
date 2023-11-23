@@ -1,0 +1,20 @@
+$javaVersions = Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Java%'" | Where-Object { $_.Version -ne '21.0.1' }
+
+if ($javaVersions) {
+    Write-Host "Java versions (excluding 21.0.1) found:"
+    foreach ($javaVersion in $javaVersions) {
+        $javaName = $javaVersion.Name
+        $javaVersionNumber = $javaVersion.Version
+        Write-Host "$javaName - $javaVersionNumber"
+    }
+
+    # Uninstall Java versions
+    foreach ($javaVersion in $javaVersions) {
+        $javaVersion.Uninstall()
+    }
+
+    Write-Host "Java versions (excluding 21.0.1) have been uninstalled."
+}
+else {
+    Write-Host "No Java versions (excluding 21.0.1) found."
+}
