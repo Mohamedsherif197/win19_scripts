@@ -66,11 +66,13 @@ if ($javaVersion) {
         else {
             Write-Host "No Java versions (excluding 21.0.1) found."
         }
+        
+        Write-Host "Java version $currentVersion has been uninstalled."
     }
-    Write-Host "Java version $currentVersion has been uninstalled."
-} }
-
-    else {Write-Output "Up to date"}
-} else {
+    else {
+        Write-Output "Up to date"
+    }
+}
+else {
     Write-Host "Oracle Java SE is not installed."
 }
