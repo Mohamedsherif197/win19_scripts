@@ -65,10 +65,7 @@ if ($javaVersion) {
         }
         else {
             Write-Host "No Java versions (excluding 21.0.1) found."
-        }
-        
-        Write-Host "Java version $currentVersion has been uninstalled."
-    }
+}
     else {
         Write-Output "Up to date"
     }
