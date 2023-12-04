@@ -1,3 +1,7 @@
+Get-WmiObject -Query "SELECT * FROM Win32_Product WHERE Name LIKE 'Microsoft Edge%'"
+
+
+
 $edgeApp = Get-AppxPackage -Name Microsoft.MicrosoftEdge
 
 if ($edgeApp) {
