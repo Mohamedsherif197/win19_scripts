@@ -1,4 +1,4 @@
-$edgeApp = Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon" -Name "version"
+$edgeApp = (Get-ChildItem -Path "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe").VersionInfo.ProductVersion
 
 if ($edgeApp) {
     Write-Output "Microsoft Edge is installed."
