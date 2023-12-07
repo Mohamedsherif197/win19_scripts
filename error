@@ -1,0 +1,13 @@
+Get-ItemProperty : Property version does not exist at path HKEY_CURRENT_USER\SOFTWARE\Microsoft\Edge\BLBeacon.
+At line:5 char:21
++ ... eVersion = (Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon' ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (version:String) [Get-ItemProperty], PSArgumentException
+    + FullyQualifiedErrorId : System.Management.Automation.PSArgumentException,Microsoft.PowerShell.Commands.GetItemPropertyCommand
+ 
+Cannot convert value "" to type "System.Version". Error: "Version string portion was too short or too long."
+At line:8 char:5
++     $currentVersion = [Version]"$edgeVersion"
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvalidCastParseTargetInvocation
