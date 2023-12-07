@@ -1,0 +1,71 @@
+$edgeApp = (Get-Item "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe").FullName
+
+if ($edgeApp) {
+    Write-Output "Microsoft Edge is installed."
+    $edgeVersion = (Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon' -Name 'version').version
+    $edgeVersion    
+    $targetVersion = [Version]"119.0.2151.97"
+    $currentVersion = [Version]"$edgeVersion"
+
+    if ($currentVersion.Major -lt $targetVersion.Major) {
+        # The current version's major component is less than the target version's major component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -lt $targetVersion.Minor) {
+        # The current version's major component is equal to the target version's major component,
+        # but the current version's minor component is less than the target version's minor component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -lt $targetVersion.Build) {
+        # The current version's major and minor components are equal to the target version's major and minor components,
+        # but the current version's build component is less than the target version's build component
+        $result = $true
+    }
+    elseif ($currentVersion.Major -eq $targetVersion.Major -and $currentVersion.Minor -eq $targetVersion.Minor -and $currentVersion.Build -eq $targetVersion.Build -and $currentVersion.Revision -lt $targetVersion.Revision) {
+        # The current version's major, minor, and build components are equal to the target version's major, minor, and build components,
+        # but the current version's revision component is less than the target version's revision component
+        $result = $true
+    }
+    else {
+        # The current version is equal to or greater than the target version
+        $result = $false
+    }
+
+    if ($result -eq $true) {
+        
+        Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2109047&Channel=Stable&language=en&brand=M100" -OutFile "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
+
+        # Start-Process -FilePath "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe" -ArgumentList "/S" -Wait
+
+        $installerPath = "$env:USERPROFILE\Downloads\MicrosoftEdgeSetup.exe"
+
+        # Create a process start info object
+        $psi = New-Object System.Diagnostics.ProcessStartInfo
+        $psi.FileName = $installerPath
+
+        # Set the process start info properties to run the installation silently without prompts
+        $psi.UseShellExecute = $false
+        $psi.RedirectStandardOutput = $true
+        $psi.RedirectStandardError = $true
+        $psi.WindowStyle = 'Hidden'
+
+        # Start the installation process
+        $process = [System.Diagnostics.Process]::Start($psi)
+
+        # Wait for the process to complete
+        $process.WaitForExit()
+
+        # Check the exit code to determine if the installation was successful
+        if ($process.ExitCode -eq 0) {
+            Write-Output "Installation completed successfully."
+        } else {
+            Write-Output "Installation failed with exit code $($process.ExitCode)."
+        }
+    }
+    else {
+        Write-Output "Up to date"
+    }
+}
+else {
+    Write-Output "Microsoft Edge is not installed."
+}
