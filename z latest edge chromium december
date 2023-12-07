@@ -1,11 +1,9 @@
-$edgeApp = Get-AppxPackage -Name Microsoft.MicrosoftEdge
+$edgeApp = (Get-ChildItem -Path "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe").VersionInfo.ProductVersion
 
 if ($edgeApp) {
-    Write-Output "Microsoft Edge is installed."
-    $edgeVersion = (Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Edge\BLBeacon' -Name 'version').version
-    $edgeVersion    
+    Write-Output "Microsoft Edge is installed."  
     $targetVersion = [Version]"119.0.2151.97"
-    $currentVersion = [Version]"$edgeVersion"
+    $currentVersion = [Version]"$edgeApp"
 
     if ($currentVersion.Major -lt $targetVersion.Major) {
         # The current version's major component is less than the target version's major component
